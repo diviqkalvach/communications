@@ -61,13 +61,20 @@ int32_t main(void)
     INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 
     /* TODO <INSERT USER APPLICATION CODE HERE> */
-    LED0_TRIS = 0; // Data direction register LED 1
-    LED1_TRIS = 0; // Data direction register LED 2
-    LED2_TRIS = 0; // Data direction register LED 3
+   LED0_TRIS = 0; // Data direction register LED 1
+   LED1_TRIS = 0; // Data direction register LED 2
+   LED2_TRIS = 0; // Data direction register LED 3
     LED0_IO = 1; // I/O register LED 1
     LED1_IO = 1; // I/O register LED 2
-    LED2_IO = 1; // I/O register LED 3
-    BUTTON0_TRIS = 1; // Button 1 data direction register
+   LED2_IO = 1; // I/O register LED 3
+  //  BUTTON0_TRIS = 1; // Button 1 data direction register
+    BUTTON0_TRIS =1;	//	(TRISDbits.TRISD6)	// Ref SW1
+	BUTTON0_IO	=0;	//(PORTDbits.RD6)
+	BUTTON1_TRIS	=1;	//(TRISDbits.TRISD7)	// Ref SW2
+	BUTTON1_IO		=0;	//(PORTDbits.RD7)
+	BUTTON2_TRIS	=1;	//(TRISDbits.TRISD13)	// Ref SW3
+	BUTTON2_IO		=0;	//(PORTDbits.RD13)
+    
     static DWORD ticksCount = 0;
     static DWORD t = 0;
     static DWORD tRes = 0;
@@ -77,9 +84,20 @@ int32_t main(void)
 //    DoUARTConfig();
     while(1)
     {
-        for(i=0; i<40000; i++);
-        mPORTDToggleBits(BIT_0);
-        mPORTDToggleBits(BIT_1);
-        mPORTDToggleBits(BIT_2);
-    }
+        if (BUTTON0_IO){
+          mPORTDToggleBits(BIT_0);}
+        if (BUTTON1_IO){
+            mPORTDToggleBits(BIT_1);
+        }
+        if (BUTTON2_IO){
+            mPORTDToggleBits(BIT_2);
+        }
+        //mPORTDToggleBits(BIT_1);
+        //mPORTDToggleBits(BIT_2);
+    } 
+ 
+
+  
+	
+
 }
